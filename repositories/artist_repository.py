@@ -5,6 +5,7 @@ from models.artist import Artist
 
 # -----CREATE-----
 
+
 def save(artist):
     sql = "INSERT INTO artists (artist_name) VALUES (%s) RETURNING *"
     values = [artist.artist_name]
@@ -13,7 +14,9 @@ def save(artist):
     artist.id = id
     return artist
 
+
 # -----READ-----
+
 
 def select(id):
     artist = None
@@ -36,14 +39,18 @@ def select_all():
         artists.append(artist)
     return artists
 
-#-----UPDATE-----
+
+# -----UPDATE-----
+
 
 def update(artist):
     sql = "UPDATE artists SET (first_name, last_name) = (%s, %s) WHERE id = %s"
     values = [artist.artist_name]
     run_sql(sql, values)
-    
-#-----DELETE-----
+
+
+# -----DELETE-----
+
 
 def delete_all():
     sql = "DELETE  FROM users"
