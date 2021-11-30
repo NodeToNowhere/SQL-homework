@@ -1,16 +1,14 @@
 from db.run_sql import run_sql
-
 from models.artist import Artist
-
 
 # -----CREATE-----
 
 
-def save(artist):
-    sql = "INSERT INTO artists (artist_name) VALUES (%s) RETURNING *"
-    values = [artist.artist_name]
+def save_artist(artist):
+    sql = "INSERT INTO artists (name) VALUES (%s) RETURNING *"
+    values = [artist.name]
     results = run_sql(sql, values)
-    id = results[0]["id"]
+    id = results[0]['id']
     artist.id = id
     return artist
 
@@ -18,7 +16,7 @@ def save(artist):
 # -----READ-----
 
 
-def select(id):
+def select_artist(id):
     artist = None
     sql = "SELECT * FROM artists WHERE id = %s"
     values = [id]
@@ -29,7 +27,7 @@ def select(id):
     return artist
 
 
-def select_all():
+def select_all_artists():
     artists = []
     sql = "SELECT * FROM artists"
     results = run_sql(sql)
@@ -43,8 +41,8 @@ def select_all():
 # -----UPDATE-----
 
 
-def update(artist):
-    sql = "UPDATE artists SET (first_name, last_name) = (%s, %s) WHERE id = %s"
+def update_artists(artist):
+    sql = "UPDATE artists SET (first_name, last_name) = (%s) WHERE id = %s"
     values = [artist.artist_name]
     run_sql(sql, values)
 
@@ -52,12 +50,12 @@ def update(artist):
 # -----DELETE-----
 
 
-def delete_all():
-    sql = "DELETE  FROM users"
+def delete_all_artists():
+    sql = "DELETE  FROM artists"
     run_sql(sql)
 
 
-def delete(id):
+def delete_artist(id):
     sql = "DELETE  FROM users WHERE id = %s"
     values = [id]
     run_sql(sql, values)
